@@ -2,15 +2,23 @@ import React, { memo, useState } from "react";
 import "./Menu.css";
 import { CgProfile } from "react-icons/cg";
 import { TbLogout } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export const Menu = memo(() => {
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   const filteredUsers = users.filter(
     (user) =>
       user.name.toLowerCase().includes(search.toLowerCase()) ||
       user.username.toLowerCase().includes(search.toLowerCase())
   );
+
+  const getUser = (id) => {
+    navigate(`/chat/${id}`);
+  };
 
   return (
     <div className="menu">
@@ -25,7 +33,11 @@ export const Menu = memo(() => {
       <ol className="users_list">
         {filteredUsers?.map((user) => {
           return (
-            <li key={user._id}>
+            <li
+              key={user._id}
+              onClick={() => getUser(user._id)}
+              style={user._id === id ? { background: "#cccccc3a" } : {}}
+            >
               <h1>
                 <span>{user.name}</span>
               </h1>

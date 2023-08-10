@@ -44,10 +44,10 @@
   gap: 10px;
   cursor: pointer;
   transition: all 0.1s ease-in-out;
+}
 
-  &:hover {
-    background-color: #cccccc3a;
-  }
+.users_list li:hover {
+  background-color: #cccccc1a;
 }
 
 .users_list li h1 {

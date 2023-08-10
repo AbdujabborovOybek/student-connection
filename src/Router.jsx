@@ -1,9 +1,11 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import { Auth } from "./Pages/Auth/Auth";
 import { Layout } from "./Components/Layout/Layout";
 
 import { Signin } from "./Pages/Auth/Signin";
 import { Signup } from "./Pages/Auth/Signup";
+
+import { Chat } from "./Pages/Chat/Chat";
 
 export const Router = () => {
   return (
@@ -14,9 +16,10 @@ export const Router = () => {
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/chat" element={<Chat />} />
+          <Route path="/chat/:id" element={<Chat />} />
         </Route>
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
@@ -29,6 +32,11 @@ const Profile = () => {
   return <div>Profile</div>;
 };
 
-const Chat = () => {
-  return <div>Chat</div>;
+const NotFound = () => {
+  return (
+    <div>
+      <h1>404</h1>
+      <Link to="/">Go Home</Link>
+    </div>
+  );
 };
