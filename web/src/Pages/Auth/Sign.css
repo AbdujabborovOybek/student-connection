@@ -1,0 +1,75 @@
+.sign {
+  width: 100%;
+  height: 100dvh;
+  background: #264653;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign > form {
+  max-width: 450px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.sign > form h1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.sign > form h1 span {
+  font-size: 34px;
+  color: #fff;
+}
+
+.sign > form h1 i {
+  font-style: normal;
+  font-size: 16px;
+  color: #fff;
+}
+
+.sign > form label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sign > form label span {
+  color: #fff;
+  font-weight: 300;
+}
+
+.sign > form label input {
+  width: 100%;
+  height: 45px;
+  border: none;
+  border-radius: 5px;
+  padding: 0 10px;
+  font-size: 18px;
+  outline: none;
+}
+
+.sign > form label input[type="submit"] {
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.sign > form div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.sign > form div a {
+  color: yellow;
+  text-decoration: none;
+  font-size: 16px;
+}
