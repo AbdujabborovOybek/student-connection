@@ -4,6 +4,7 @@ class user {
   async signup(req, res) {
     try {
       const newUser = await req.body;
+      newUser.lastActive = new Date();
       await db.collection("user").insertOne(newUser);
 
       res.status(200).json({
@@ -18,7 +19,6 @@ class user {
     }
   }
 
-  // { : '+998 95 027 0496', : 'admin' }
   async signin(req, res) {
     try {
       const { phone, password } = await req.body;
@@ -35,6 +35,24 @@ class user {
         message: "Welcome to your account",
         variant: "success",
         user,
+      });
+    } catch (err) {
+      res.status(500).json({
+        message: "Internal server error",
+        variant: "error",
+      });
+    }
+  }
+
+  async getAll(req, res) {
+    try {
+      const users = await db.collection("user").find().toArray();
+
+      res.status(200).json({
+        message: "Get all users successfully",
+        variant: "success",
+        amount: users.length,
+        users,
       });
     } catch (err) {
       res.status(500).json({

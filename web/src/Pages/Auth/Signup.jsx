@@ -31,7 +31,7 @@ export const Signup = () => {
         navigate("/signin");
       })
       .catch((err) => {
-        const { message, variant } = err.response.data;
+        const { message, variant } = err?.response?.data;
         enqueueSnackbar(message, { variant });
       });
   };

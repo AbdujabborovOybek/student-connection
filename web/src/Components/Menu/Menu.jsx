@@ -1,18 +1,32 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useEffect } from "react";
 import "./Menu.css";
 import { CgProfile } from "react-icons/cg";
 import { TbLogout } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+
+const url = process.env.REACT_APP_BASE_URL;
 
 export const Menu = memo(() => {
+  const [users, setUsers] = useState(null);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const filteredUsers = users.filter(
+  useEffect(() => {
+    axios(`${url}/get/user`)
+      .then((res) => {
+        setUsers(res.data.users);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const filteredUsers = users?.filter(
     (user) =>
-      user.name.toLowerCase().includes(search.toLowerCase()) ||
+      user.fullname.toLowerCase().includes(search.toLowerCase()) ||
       user.username.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -38,6 +52,8 @@ export const Menu = memo(() => {
 
       <ol className="users_list">
         {filteredUsers?.map((user) => {
+          const lastActive = new Date(user.lastActive).toLocaleTimeString();
+
           return (
             <li
               key={user._id}
@@ -45,12 +61,12 @@ export const Menu = memo(() => {
               style={user._id === id ? { background: "#cccccc3a" } : {}}
             >
               <h1>
-                <span>{user.name}</span>
+                <span>{user.fullname}</span>
               </h1>
 
               <p>
                 <span>@{user.username}</span>
-                <i>{user.lastActivete}</i>
+                <i>{lastActive}</i>
               </p>
             </li>
           );
@@ -69,70 +85,3 @@ export const Menu = memo(() => {
     </div>
   );
 });
-
-const users = [
-  {
-    _id: "3wedsvg456bgf",
-    name: "Oybek Abdujabborov",
-    username: "oybek",
-    phone: "+998 99 999 99 99",
-    lastActivete: "09:12",
-  },
-
-  {
-    _id: "3wedsvg456bgf5",
-    name: "Maxliyo Karimova",
-    username: "maxliyo_k",
-    phone: "+998 99 999 99 99",
-    lastActivete: "08:12",
-  },
-  {
-    _id: "3wedsvg456bgf6",
-    name: "Kurganov Shoxjaxon",
-    username: "shox",
-    phone: "+998 99 999 99 99",
-    lastActivete: "07:12",
-  },
-  {
-    _id: "3wedsvg456bgf7",
-    name: "Otabek Muhammadov",
-    username: "otabek",
-    phone: "+998 99 999 99 99",
-    lastActivete: "06:12",
-  },
-  {
-    _id: "3wedsvg456bgf8",
-    name: "Anasxon Turg'unpolatov",
-    username: "anasxon",
-    phone: "+998 99 999 99 99",
-    lastActivete: "05:12",
-  },
-  {
-    _id: "3wedsvg456bgf9",
-    name: "Xurshidbek Axmedov",
-    username: "xurshidbek",
-    phone: "+998 99 999 99 99",
-    lastActivete: "04:12",
-  },
-  {
-    _id: "3wedsvg456bgf10",
-    name: "Nodirbek Maxmudov",
-    username: "nodirbek",
-    phone: "+998 99 999 99 99",
-    lastActivete: "03:12",
-  },
-  {
-    _id: "3wedsvg456bgf11",
-    name: "Abubakir Raxmatullayev",
-    username: "abubakir",
-    phone: "+998 99 999 99 99",
-    lastActivete: "02:12",
-  },
-  {
-    _id: "3wedsvg456bgf12",
-    name: "Zakariyyo Narzullayev",
-    username: "zakariyyo",
-    phone: "+998 99 999 99 99",
-    lastActivete: "01:12",
-  },
-];
