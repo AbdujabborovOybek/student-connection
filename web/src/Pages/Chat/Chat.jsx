@@ -20,10 +20,14 @@ export const Chat = () => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [id]);
+  }, [id, update]);
 
   useEffect(() => {
-    axios(`${url}/get/chat/${id}`)
+    axios(`${url}/get/chat/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((res) => {
         console.log(res.data);
         setChat(res.data);
@@ -35,12 +39,8 @@ export const Chat = () => {
 
   const handleSendMessage = (e) => {
     e.preventDefault();
-
-    const data = JSON.parse(localStorage.getItem("user"));
-
     const option = {
       text: e.target.text.value,
-      from: data._id,
       to: id,
     };
 
@@ -49,6 +49,7 @@ export const Chat = () => {
       url: `${url}/send/message`,
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       data: JSON.stringify(option),
     };
@@ -70,7 +71,7 @@ export const Chat = () => {
         <div className="chat_header__info">
           <h1>{chat?.user?.fullname}</h1>
           <span>
-            last seen at {new Date(chat?.user.lastActive).toLocaleTimeString()}
+            last seen at {new Date(chat?.user?.lastActive).toLocaleTimeString()}
           </span>
         </div>
 

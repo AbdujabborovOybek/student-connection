@@ -15,7 +15,11 @@ export const Menu = memo(() => {
   const { id } = useParams();
 
   useEffect(() => {
-    axios(`${url}/get/user`)
+    axios(`${url}/get/user`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((res) => {
         setUsers(res.data.users);
       })

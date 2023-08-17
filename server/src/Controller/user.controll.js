@@ -1,4 +1,5 @@
 const db = require("../mongodb.config");
+const tokenService = require("../Service/token.service");
 
 class user {
   async signup(req, res) {
@@ -23,6 +24,7 @@ class user {
     try {
       const { phone, password } = await req.body;
       const user = await db.collection("user").findOne({ phone, password });
+      const token = await tokenService.generateToken(user);
 
       if (!user) {
         return res.status(404).json({
@@ -35,6 +37,7 @@ class user {
         message: "Welcome to your account",
         variant: "success",
         user,
+        token,
       });
     } catch (err) {
       res.status(500).json({
