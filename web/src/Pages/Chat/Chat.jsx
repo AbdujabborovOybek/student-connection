@@ -92,11 +92,10 @@ export const Chat = () => {
 
           return (
             <div
+              key={message._id}
               ref={messagesEndRef}
               className={
-                message.userId === id
-                  ? "chat_msg_box left"
-                  : "chat_msg_box right"
+                message.to !== id ? "chat_msg_box left" : "chat_msg_box right"
               }
             >
               <p>

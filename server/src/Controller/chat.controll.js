@@ -30,7 +30,13 @@ class chatController {
       const userID = await req?.params?.id;
       const from = await req?.user?._id;
       const user = await uc.findOne({ _id: new ObjectId(userID) });
-      const chat = await ch.find({ from: from, to: userID }).toArray();
+
+      const me = await ch.find({ from: from, to: userID }).toArray();
+      const you = await ch.find({ from: userID, to: from }).toArray();
+
+      const chat = [...me, ...you].sort((a, b) => {
+        return new Date(a.createdAt) - new Date(b.createdAt);
+      });
 
       res.status(200).json({
         user,
