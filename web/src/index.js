@@ -11,7 +11,13 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     <BrowserRouter>
-      <SnackbarProvider maxSnack={3}>
+      <SnackbarProvider
+        maxSnack={3}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+      >
         <Router />
       </SnackbarProvider>
     </BrowserRouter>

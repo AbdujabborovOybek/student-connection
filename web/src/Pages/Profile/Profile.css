@@ -1,0 +1,74 @@
+.profile {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile > form {
+  max-width: 450px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.profile > form h1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.profile > form h1 span {
+  font-size: 34px;
+  color: #fff;
+}
+
+.profile > form h1 i {
+  font-style: normal;
+  font-size: 16px;
+  color: #fff;
+}
+
+.profile > form label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.profile > form label span {
+  color: #fff;
+  font-weight: 300;
+}
+
+.profile > form label input {
+  width: 100%;
+  height: 45px;
+  border: none;
+  border-radius: 5px;
+  padding: 0 10px;
+  font-size: 18px;
+  outline: none;
+}
+
+.profile > form label input[type="submit"] {
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.btn_deleteAccount {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  border: none;
+  background: red;
+  color: #fff;
+  padding: 4px 5px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 14px;
+}

@@ -6,6 +6,7 @@ import { Signin } from "./Pages/Auth/Signin";
 import { Signup } from "./Pages/Auth/Signup";
 
 import { Chat } from "./Pages/Chat/Chat";
+import { Profile } from "./Pages/Profile/Profile";
 
 export const Router = () => {
   return (
@@ -15,8 +16,8 @@ export const Router = () => {
       <Route element={<Auth />}>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/chat/:id" element={<Chat />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="chat/:id" element={<Chat />} />
         </Route>
       </Route>
       <Route path="*" element={<NotFound />} />
@@ -26,10 +27,6 @@ export const Router = () => {
 
 const Home = () => {
   return <div>Home</div>;
-};
-
-const Profile = () => {
-  return <div>Profile</div>;
 };
 
 const NotFound = () => {

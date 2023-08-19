@@ -11,6 +11,7 @@ const url = process.env.REACT_APP_BASE_URL;
 export const Menu = memo(() => {
   const [users, setUsers] = useState(null);
   const [search, setSearch] = useState("");
+  const [update, setUpdate] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -26,7 +27,11 @@ export const Menu = memo(() => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [update]);
+
+  setInterval(() => {
+    setUpdate(!update);
+  }, 30000);
 
   const filteredUsers = users?.filter(
     (user) =>
@@ -39,6 +44,11 @@ export const Menu = memo(() => {
   };
 
   const logout = () => {
+    const confirm = window.confirm("Are you sure you want to logout?");
+    alert(confirm);
+
+    if (!confirm) return;
+
     localStorage.clear();
     sessionStorage.clear();
     window.location.reload();
@@ -78,7 +88,7 @@ export const Menu = memo(() => {
       </ol>
 
       <div className="menu_action">
-        <button>
+        <button onClick={() => navigate("/profile")}>
           <CgProfile />
         </button>
 

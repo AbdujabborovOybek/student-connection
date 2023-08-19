@@ -56,12 +56,12 @@ export const Chat = () => {
 
     axios(config)
       .then((res) => {
-        console.log(res.data);
+        console.log(res?.data);
         setUpdate(!update);
         e.target.reset();
       })
       .catch((err) => {
-        console.log(err.response.data);
+        console.log(err?.response?.data);
       });
   };
 
