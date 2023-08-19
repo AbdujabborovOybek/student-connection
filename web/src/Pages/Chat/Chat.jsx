@@ -5,13 +5,12 @@ import { BsThreeDots } from "react-icons/bs";
 import { IoSend } from "react-icons/io5";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-
 const url = process.env.REACT_APP_BASE_URL;
 
 export const Chat = () => {
+  const { id } = useParams();
   const [chat, setChat] = useState(null);
   const [update, setUpdate] = useState(false);
-  const { id } = useParams();
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -20,6 +19,7 @@ export const Chat = () => {
 
   useEffect(() => {
     scrollToBottom();
+    setChat(null);
   }, [id, update]);
 
   useEffect(() => {
@@ -29,8 +29,8 @@ export const Chat = () => {
       },
     })
       .then((res) => {
-        console.log(res.data);
         setChat(res.data);
+        localStorage.setItem(id, JSON.stringify(res.data));
       })
       .catch((err) => {
         console.log(err);
@@ -69,9 +69,13 @@ export const Chat = () => {
     <div className="chat">
       <div className="chat_header">
         <div className="chat_header__info">
-          <h1>{chat?.user?.fullname}</h1>
-          <span>
+          <h1>{chat?.user?.fullname || "Loading..."}</h1>
+          <span style={!chat ? { display: "none" } : {}}>
             last seen at {new Date(chat?.user?.lastActive).toLocaleTimeString()}
+          </span>
+
+          <span style={chat ? { display: "none" } : {}}>
+            last seen at 00:00:00
           </span>
         </div>
 
@@ -92,6 +96,7 @@ export const Chat = () => {
 
           return (
             <div
+              style={!chat ? { display: "none" } : {}}
               key={message._id}
               ref={messagesEndRef}
               className={
